@@ -1,0 +1,45 @@
+body {
+    background-image: url('assets/images/background/NewYork-Rain.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+}
+html, body {
+    height: 100vh;
+    overflow: hidden;
+}
+
+.timer-panel {
+    position: relative;
+    display: flex;
+    box-sizing: border-box;
+    color: antiquewhite;
+    font-size: 6rem;
+    width: 40vw;
+    height: 30vh;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2rem;
+    top: 20vh;
+    left: 30vw;
+}
+
+.music-panel{
+    background-color: black;
+    color: aliceblue;
+    width: 15vw;
+    height: 5vw;
+    padding: 0;
+    position: relative;
+    top: 80vh;
+    left: 3vw;
+    border-radius: 15%;
+    
+}
+
+.cover-art {
+        background-image: url('assets/images/spotify/Placeholder.jpg');
+
+}
