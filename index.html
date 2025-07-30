@@ -29,11 +29,28 @@
             </div>
         </div>
             <div class="timer">
-                <svg id="progress-ring">...</svg>
+                <svg id="progress-ring" width="300" height="300">
+                <circle
+                    class="progress-background"
+                    cx="150"
+                    cy="150"
+                    r="140"
+                    stroke-width="10"
+                    fill="transparent"
+                />
+                <circle
+                    class="progress-circle"
+                    cx="150"
+                    cy="150"
+                    r="140"
+                    stroke-width="10"
+                    fill="transparent"
+                />
+            </svg>
                 <span id="time-display">25:00</span>
             </div>
             <div class="functionality-buttons">
-                <button class="function-btn" id="start">Start</button>
+                <button class="start-btn" id="start">Start</button>
                 <div class="reset-div">
                     <i class="fa-solid fa-rotate-right" id="reset"></i>
                 </div>
@@ -69,6 +86,9 @@
                     <i class="fa-solid fa-forward" id="next"></i>
                 </div> 
             </div>
+        </div>
+        <div class="fullscreen">
+            <i class="fa-solid fa-expand" id="expand"></i>
         </div>
     </div>
     

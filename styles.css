@@ -11,19 +11,27 @@ body {
 html, body {
     height: 100vh;
     overflow: hidden;
+    overflow-x: hidden;
 }
 
 .bottom {
     position: absolute;
-    top: 1vh;
+    bottom: 0;
     width: 100%;
     display: flex;
-    justify-content: flex-start;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 1rem;
+    box-sizing: border-box;
 }
 
 
 .music-panel{
     display: flex;
+    flex:  1 1 200px;
+    min-width: 200px;
+    max-width: 300px;
     flex-direction: column;
     background: transparent;
     backdrop-filter: blur(10px);
@@ -33,11 +41,10 @@ html, body {
     height: 16vh;
     padding: 0;
     position: relative;
-    top: 75vh;
-    left: 3vw;
     border-radius: 15%;
     padding: 1rem;  
     font-size: 1.2rem;
+    margin: 1rem;
 }
 
 .music-info{
@@ -126,7 +133,7 @@ html, body {
 
 .podmoro-container {
     position: absolute;
-    top: 40vh;
+    top: 30vh;
     left: 50%;
     transform: translateX(-50%);
 
@@ -173,3 +180,117 @@ input.form-check-input:checked + label{
     background-color: white;
 }
 
+.form-check label:hover {
+    color: black;
+    background-color: rgb(208, 210, 212);
+}
+
+.functionality-buttons {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.start-btn {
+    color: black;
+    padding: 0.5rem 1rem;
+    border: 2px solid white;
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    font-family: 'Swanky and Moo Moo', sans-serif;
+    width: 6vw;
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+.start-btn:hover{
+    color: white;
+    background-color: transparent;
+}
+
+#reset, #settings, #expand{
+    font-size: 2.5rem;
+}
+.reset-div, .settings-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#settings:hover{
+    transform: rotate(180deg);
+}
+
+.spin{
+    transform: rotate(360deg);
+    transition: transform 0.5s ease;
+}
+
+.fullscreen {
+    position: fixed;
+    bottom: 2vh;
+    right: 1vw;
+    z-index: 99;
+}
+
+#expand{
+    transform: scale(2rem);
+    transition: transform 0.5s ease-in;
+    color: white;
+}
+#expand:hover {
+    color: white !important;
+    filter: none !important;
+    transform: scale(1.5);
+    transition: transform 0.1s ease;
+}
+
+.timer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: auto;
+    margin: 6rem;
+}
+
+#time-display{
+    font-size: 5rem;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+#progress-ring {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    /* Adjust as needed */
+    z-index: -1;
+}
+
+#progress-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.progress-background {
+  stroke: #ffffff30; /* Light background ring */
+}
+
+.progress-circle {
+  stroke: white;
+  stroke-dasharray: 880; /* 2πr = 2 * π * 140 ≈ 880 */
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  transition: stroke-dashoffset 1s linear;
+}
