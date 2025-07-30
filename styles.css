@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@100..900&family=Swanky+and+Moo+Moo&display=swap');
 
 body {
     background-image: url('assets/images/background/OceanSunrise.jpg');
@@ -125,7 +126,7 @@ html, body {
 
 .podmoro-container {
     position: absolute;
-    top: 30vh;
+    top: 40vh;
     left: 50%;
     transform: translateX(-50%);
 
@@ -140,11 +141,35 @@ html, body {
 }
 
 .durations-panel{
-    background-color: blue;
     width: auto;
     display: flex;
     flex-direction: row;
     justify-content: center;
     gap: 1rem;
+}
+.form-check-input{
+    appearance: none;
+    opacity: 0;
+    position: absolute;
+}
+
+.form-check label {
+    color: white;
+    padding: 0.5rem 1rem;
+    border: 2px solid white;
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    font-family: 'Swanky and Moo Moo', sans-serif;
+    display: inline-block;
+    width: 6vw;
+    text-align: center;
+    font-size: 1.4rem;
+    white-space: nowrap;
+}
+
+input.form-check-input:checked + label{
+    color: black;
+    background-color: white;
 }
 
