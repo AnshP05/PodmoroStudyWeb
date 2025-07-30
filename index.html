@@ -9,49 +9,68 @@
     <script src="https://kit.fontawesome.com/c354fc2a79.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
-    <div class="music-panel">
-        <div class="music-info">
-            <div class="cover-art"></div>
-            <div class="track-details">
-                <h4 id="track-title">Lofi-Beat#1</h4>
-                <p id="track-artist">Unknown Artist</p>
+    <div class="top"></div>
+    <div class="podmoro-container">
+        <div class="durations-panel">
+            <div class="form-check">
+                <label>
+                    <input class="form-check-input" type="radio" name="timerType" id="podmoro" value="pomodoro" checked> Podmoro
+                </label>   
+            </div>
+            <div class="form-check">
+                <label>
+                    <input class="form-check-input" type="radio" name="timerType" id="short-break" value="shortbreak" > Short Break
+                </label>
+                
+            </div>
+            <div class="form-check">
+                <label>
+                    <input class="form-check-input" type="radio" name="timerType" id="long-break" value="long break"> Long Break
+                </label>
+                
             </div>
         </div>
-        <div class="music-bottom">
-            <div class="music-progress-bar" id="music-bar">
-                <div class="progress" id="progress">
-                    <div class="music-time">
-                        <span id="current-time">0:00</span>
-                        <span id="duration">0:00</span>
-                    </div>
-                </div>
+            <div class="timer">
+                <svg id="progress-ring">...</svg>
+                <span id="time-display">25:00</span>
             </div>
-            <div class="music-controls">
-                <i class="fa-solid fa-backward" id="prev"></i>
-                <i class="fa-solid fa-play play-btn" id="play"></i>
-                <i class="fa-solid fa-forward" id="next"></i>
-            </div> 
-        </div>
-    </div>
-
-    <div class="timer-panel">
-        <div class="timer-buttons">
-            <button class="mode-btn" id="podomoro">Podmoro</button>
-            <button class="mode-btn" id="short-break">Short Break</button>
-            <button class="mode-btn" id="long-break">Long Break</button>
-        </div>
-        <div class="timer">
-            <svg id="progress-ring">...</svg>
-            <span id="time-display">25:00</span>
-        </div>
-        <div class="functionality-buttons">
-            <button class="function-btn" id="start">Start</button>
-            <button class="function-btn" id="reset">Reset</button>
-            <button class="function-btn" id="settings">Settings</button>
-        </div>
+            <div class="functionality-buttons">
+                <button class="function-btn" id="start">Start</button>
+                <button class="function-btn" id="reset">Reset</button>
+                <button class="function-btn" id="settings">Settings</button>
+            </div>
         <div id="settings-panel" class="hidden"></div>
     </div>
+
+    <div class="bottom">
+        <div class="music-panel">
+            <div class="music-info">
+                <div class="cover-art"></div>
+                <div class="track-details">
+                    <h4 id="track-title">Lofi-Beat#1</h4>
+                    <p id="track-artist">Unknown Artist</p>
+                </div>
+            </div>
+            <div class="music-bottom">
+                <div class="music-progress-bar" id="music-bar">
+                    <div class="progress" id="progress">
+                        <div class="music-time">
+                            <span id="current-time">0:00</span>
+                            <span id="duration">0:00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="music-controls">
+                    <i class="fa-solid fa-backward" id="prev"></i>
+                    <i class="fa-solid fa-play play-btn" id="play"></i>
+                    <i class="fa-solid fa-forward" id="next"></i>
+                </div> 
+            </div>
+        </div>
+    </div>
+    
+
+    
     
 </body>
 </html>

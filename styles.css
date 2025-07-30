@@ -1,3 +1,4 @@
+
 body {
     background-image: url('assets/images/background/OceanSunrise.jpg');
     background-size: cover;
@@ -11,21 +12,14 @@ html, body {
     overflow: hidden;
 }
 
-.timer-panel {
-    position: relative;
+.bottom {
+    position: absolute;
+    top: 1vh;
+    width: 100%;
     display: flex;
-    flex-direction: row;
-    box-sizing: border-box;
-    color: antiquewhite;
-    font-size: 6rem;
-    width: 40vw;
-    height: 30vh;
-    justify-content: center;
-    align-items: center;
-    border-radius: 2rem;
-    top: 20vh;
-    left: 30vw;
+    justify-content: flex-start;
 }
+
 
 .music-panel{
     display: flex;
@@ -52,9 +46,8 @@ html, body {
 
 .cover-art {
     background-image: url('assets/images/spotify/placeholder2.jpg');
-    z-index: 1;
-    width: 5rem;
-    height: 5rem;
+    width: 4rem;
+    height: 4rem;
     background-size: cover;
     background-position: center;
     border-radius: 8px;
@@ -75,7 +68,7 @@ html, body {
     background-color: #c6bfbf;
     border-radius: 5px;
     height: 7px;
-    width: 90%;
+    width: 100%;
     margin-top: 2rem;
     margin-left: auto;
     margin-right: auto;
@@ -104,11 +97,10 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 90%;
+    width: 100%;
     margin-top: 0.5rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    gap: 3rem;
+    gap: 2rem;
+    padding: 0;
 }
 
 .fa-solid {
@@ -126,4 +118,33 @@ html, body {
 
 
 
+.durations-panel {
+  position: relative;
+  z-index: 999;
+}
+
+.podmoro-container {
+    position: absolute;
+    top: 30vh;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 100%;
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.durations-panel{
+    background-color: blue;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+}
 
