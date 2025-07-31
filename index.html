@@ -96,15 +96,77 @@
             <div class="settings-tabs">
                 <ul>
                     <li class="tab active">Timer</li>
-                    <li class="tab">General</li>
                     <li class="tab">Theme</li>
                     <li class="tab">Alerts</li>
                 </ul>
             </div>
-            <div class="settings-content"></div>
+            <div class="settings-content">
+                <div class="timer-settings-content">
+                    <h2>Timer Settings</h2>
+                    <label for="pomodoro-duration">Pomodoro Duration</label>
+                    <input type="number" id="pomodoro-duration" name="pomodoro-duration" value="25">
+                    
+                    <label for="short-break">Short Break Duration</label>
+                    <input type="number" id="short-break-duration" name="short-break" value="5">
+                    
+                    <label for="long-break">Long Break Duration</label>
+                    <input type="number" id="long-break-duration" name="long-break" value="15">
+                </div>
+                <div class="theme-settings-content">
+                    <div class="theme-dropdown">
+                        <label for="theme-select">Choose a Theme:</label>
+                        <select id="theme-select" name="theme-select">
+                            <option value="ocean-sunrise">Ocean Sunrise</option>
+                            <option value="fall-forest">Fall Forest</option>
+                            <option value="mountains">Mountains</option>
+                            <option value="nyc">Rainy New York City</option>
+                            <option value="desert-dunes">Desert Dunes</option>
+                            <option value="rainy-window">Rainy Window</option>
+                            <option value="galaxy">Galaxy</option>
+                            <option value="bookshelf">Bookshelf</option>
+                            <option value="sunset-glow">Sunset Glow</option>
+                            <option value="minimalist">Minimalist</option>
+                            <option value="snowy-forest">Snowy Forest</option>
+                            <option value="lofi-Asthetic">Lofi-Asthetic</option>
+                            <option value="graident Blur">Graident Blur</option>
+                            <option value="code">Code</option>
+                            <option value="cozy-cafe">Cozy Cafe</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="alerts-settings">
+                    <h2>Alerts Settings</h2>
+
+                    <!-- Enable/Disable Sound Alerts -->
+                    <div class="form-group">
+                        <label for="sound-toggle">Enable Sound Alerts</label>
+                        <input type="checkbox" id="sound-toggle" name="sound-toggle" checked>
+                    </div>
+
+                    <!-- Sound Selection Dropdown -->
+                    <div class="form-group">
+                        <label for="sound-select">Choose Alert Sound</label>
+                        <select id="sound-select" name="sound-select">
+                        <option value="bell">Bell</option>
+                        <option value="chime">Chime</option>
+                        <option value="gong">Gong</option>
+                        <option value="soft-tone">Soft Tone</option>
+                        <option value="none">None</option>
+                        </select>
+                    </div>
+
+                    <!-- Audio Volume Range -->
+                    <div class="form-group">
+                        <label for="volume-range">Alert Volume</label>
+                        <input type="range" id="volume-range" name="volume-range" min="0" max="100" value="75">
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="settings-footer">
-                <button class></button>
+            <button class="save-btn">Save Changes</button>
+            <button class="reset-btn">Reset All</button>
+            <button class="close-btn">Close</button>
         </div>
     </div>
 
