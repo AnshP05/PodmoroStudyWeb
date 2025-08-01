@@ -97,8 +97,8 @@
             <div class="settings-tabs">
                 <ul>
                     <li class="tab ">Timer</li>
-                    <li class="tab active">Theme</li>
-                    <li class="tab">Alerts</li>
+                    <li class="tab">Theme</li>
+                    <li class="tab active">Alerts</li>
                 </ul>
             </div>
             <div class="settings-content">
@@ -126,10 +126,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="theme-settings-content">
-                    <h2>Theme Settings</h2>
+                <div class="theme-settings-content hidden" >
+                    <div class="title-wrapper">
+                        <h2>Theme Settings</h2>
+                    </div>
                     <div class="theme-dropdown">
-                        <label for="theme-select">Choose a Theme:</label>
+                        <label for="theme-select">Select Theme:</label>
                         <select id="theme-select" name="theme-select">
                             <option value="ocean-sunrise">Ocean Sunrise</option>
                             <option value="fall-forest">Fall Forest</option>
@@ -149,50 +151,10 @@
                         </select>
                     </div>
                 </div>
-            </div> 
-            </div>
-        </div>
-        <div class="settings-footer">
-            <button class="reset-btn">Reset All</button>
-            <button class="close-btn">Close</button>
-            <button class="save-btn">Save Changes</button>
-        </div>
-    </div>
-
-    
-    
-</body>
-</html>
-
-
-
-<!-- <div class="theme-settings-content">
-                    <h2>Theme Settings</h2>
-                    <div class="theme-dropdown">
-                        <label for="theme-select">Choose a Theme:</label>
-                        <select id="theme-select" name="theme-select">
-                            <option value="ocean-sunrise">Ocean Sunrise</option>
-                            <option value="fall-forest">Fall Forest</option>
-                            <option value="mountains">Mountains</option>
-                            <option value="nyc">Rainy New York City</option>
-                            <option value="desert-dunes">Desert Dunes</option>
-                            <option value="rainy-window">Rainy Window</option>
-                            <option value="galaxy">Galaxy</option>
-                            <option value="bookshelf">Bookshelf</option>
-                            <option value="sunset-glow">Sunset Glow</option>
-                            <option value="minimalist">Minimalist</option>
-                            <option value="snowy-forest">Snowy Forest</option>
-                            <option value="lofi-Asthetic">Lofi-Asthetic</option>
-                            <option value="graident Blur">Graident Blur</option>
-                            <option value="code">Code</option>
-                            <option value="cozy-cafe">Cozy Cafe</option>
-                        </select>
+                <div class="alerts-settings-content ">
+                    <div class="alert-settings-div" >
+                        <h2>Alerts Settings</h2>
                     </div>
-                </div>
-                <div class="alerts-settings">
-                    <h2>Alerts Settings</h2>
-
-
                     <div class="form-group">
                         <label for="sound-toggle">Enable Sound Alerts</label>
                         <input type="checkbox" id="sound-toggle" name="sound-toggle" checked>
@@ -215,4 +177,17 @@
                         <input type="range" id="volume-range" name="volume-range" min="0" max="100" value="75">
                     </div>
                 </div>
-            </div>-->
+            </div> 
+            </div>
+        </div>
+        <div class="settings-footer">
+            <button class="reset-btn">Reset All</button>
+            <button class="close-btn">Close</button>
+            <button class="save-btn">Save Changes</button>
+        </div>
+    </div>
+
+    
+    
+</body>
+</html>

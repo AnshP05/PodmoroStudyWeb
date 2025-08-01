@@ -299,8 +299,7 @@ input.form-check-input:checked + label{
     background-color: rgba(0, 0, 0, 0.9); /* Slight transparency */
     backdrop-filter: blur(10px); /* Frosted glass effect */
     width: 30vw; /* Make it broader */
-    min-height: 30vh;
-    height: auto;
+    height: fit-content;
     color: white;
     padding: 1.5rem;
     border-radius: 1rem;
@@ -455,8 +454,45 @@ input.form-check-input:checked + label{
 }
 .tab {
     color: white;
+    font-weight: bold;
 }
 .tab:hover{
     color: #c6bfbf;
     cursor: pointer;
 }
+
+.theme-settings-content{
+    margin-top: -16.2rem;
+    margin-left: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+
+#theme-select, #sound-select{
+    color: white;
+    width: 15rem;
+    font-family: 'The Girl Next Door', roboto;
+    font-size: 1.2rem;
+    background-color: rgba(0, 0, 0, 0.9); /* Slight transparency */
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+}
+
+.alerts-settings-content{
+    margin-top: -7.2rem;
+    margin-left: 2.12rem;
+    padding: 1rem;
+}
+
+
+.form-group {
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+}
+
+#volume-range {
+    color: white;
+    width: 90%;
+}
+
+
