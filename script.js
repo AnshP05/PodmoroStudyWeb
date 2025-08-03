@@ -3,6 +3,7 @@ const settingsPanel = document.querySelector('.settings-panel')
 const closeBtn = document.querySelector('.close-btn')
 const settingsX = document.getElementById('x-btn')
 const startBtn = document.getElementById('start')
+const resetBtn = document.getElementById('reset')
 
 const themeSettings = document.querySelector('.theme-settings-content')
 const alertSettings = document.querySelector('.alert-settings-content')
@@ -81,26 +82,33 @@ themeSelect.addEventListener('change', (e) => {
 })
 
 shortBreakLabel.addEventListener('click', () => {
-    if(isPaused){
-        const value = parseInt(shortBreakInput.value)
-        timeDisplay.innerHTML = isNaN(value) ? '5:00': `${value}:00`
-        curDuration = 'short-break'
-    }
+    switchMode('short-break', shortBreakInput, 5)
 })
 longBreakLabel.addEventListener('click', () => {
-    if(isPaused){
-        const value = parseInt(longBreakInput.value)
-        timeDisplay.innerHTML = isNaN(value) ? '15:00': `${value}:00`
-        curDuration = 'long-break'
-    }
+    switchMode('long-break', longBreakInput, 15)
 })
 pomodoroLabel.addEventListener('click', () => {
-    if(isPaused){
-        const value = parseInt(pomodoroInput.value)
-        timeDisplay.innerHTML = isNaN(value) ? '25:00': `${value}:00`
-        curDuration = 'pomodoro'
-    }
+    switchMode('pomodoro', pomodoroInput, 25)
 })
+
+function switchMode(mode, input, defaultVal) {
+    if(timerInterval && !isPaused) {
+        const confirmSwitch = confirm("Switching modes will reset the current timer. Continue?")
+        if(!confirmSwitch) return
+        clearInterval(timerInterval)
+        timerInterval = null
+        isPaused = false
+        remainingTime = 0
+        endTime = 0
+        startBtn.innerHTML = 'Start'
+    }
+
+    curDuration = mode
+    const value = parseInt(input.value)
+    const duration = isNaN(value) ? defaultVal : value
+    timeDisplay.innerHTML = `${String(duration).padStart(2, '0')}:00`
+    if(isNaN(value)) input.value = defaultVal
+}
 
 saveBtn.addEventListener('click', () => {
     settingsPanel.classList.add('hidden')
@@ -122,6 +130,9 @@ saveBtn.addEventListener('click', () => {
 
 startBtn.addEventListener('click', () => {
 
+    startBtn.disabled = true;
+    setTimeout(() => startBtn.disabled = false, 500);
+
     if (timerInterval && !isPaused) {
         clearInterval(timerInterval);
         remainingTime = endTime - new Date().getTime();
@@ -141,11 +152,11 @@ startBtn.addEventListener('click', () => {
 
     let durationMinutes;
     if (curDuration === 'pomodoro') {
-        durationMinutes = parseInt(pomodoroInput.value) || 25;
+        durationMinutes = Math.max(1, parseInt(pomodoroInput.value) || 25);
     } else if (curDuration === 'short-break') {
-        durationMinutes = parseInt(shortBreakInput.value) || 5;
+        durationMinutes = Math.max(1, parseInt(shortBreakInput.value) || 5);
     } else if (curDuration === 'long-break') {
-        durationMinutes = parseInt(longBreakInput.value) || 10;
+        durationMinutes = Math.max(1, parseInt(longBreakInput.value) || 15);
     }
 
     endTime = new Date().getTime() + durationMinutes * 60 * 1000;
@@ -203,3 +214,7 @@ function resetSettings() {
     document.body.style.backgroundImage = `url('assets/images/background/Ocean-Sunrise.jpg')`
     
 }
+
+resetBtn.addEventListener('click', () => {
+    
+})
