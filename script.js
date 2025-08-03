@@ -12,7 +12,7 @@ const timerTab = document.getElementById('timer-tab')
 const themeTab = document.getElementById('theme-tab')
 const alertTab = document.getElementById('alerts-tab')
 
-const themeSelect = document.querySelector('.theme-dropdown')
+const themeSelect = document.querySelector('#theme-select')
 
 const timeDisplay = document.getElementById('time-display')
 const shortBreakLabel = document.getElementById('short-break')
@@ -26,11 +26,20 @@ const longBreakInput = document.getElementById('long-break-duration')
 const saveBtn = document.querySelector('.save-btn')
 let curDuration = 'pomodoro'
 
+let timerInterval = null
+let isPaused = false
+let remainingTime = 0
+let endTime = 0
+
+const resetAllBtn = document.querySelector('.reset-btn')
+
+
 settingsBtn.addEventListener('click', () => {
 	settingsPanel.classList.toggle('hidden')
 })
 closeBtn.addEventListener('click', () => {
     settingsPanel.classList.add('hidden')
+
 })
 settingsX.addEventListener('click', () => {
     settingsPanel.classList.add('hidden')
@@ -72,19 +81,25 @@ themeSelect.addEventListener('change', (e) => {
 })
 
 shortBreakLabel.addEventListener('click', () => {
-    const value = parseInt(shortBreakInput.value)
-    timeDisplay.innerHTML = isNaN(value) ? '5:00': `${value}:00`
-    curDuration = 'short-break'
+    if(isPaused){
+        const value = parseInt(shortBreakInput.value)
+        timeDisplay.innerHTML = isNaN(value) ? '5:00': `${value}:00`
+        curDuration = 'short-break'
+    }
 })
 longBreakLabel.addEventListener('click', () => {
-    const value = parseInt(longBreakInput.value)
-    timeDisplay.innerHTML = isNaN(value) ? '15:00': `${value}:00`
-    curDuration = 'long-break'
+    if(isPaused){
+        const value = parseInt(longBreakInput.value)
+        timeDisplay.innerHTML = isNaN(value) ? '15:00': `${value}:00`
+        curDuration = 'long-break'
+    }
 })
 pomodoroLabel.addEventListener('click', () => {
-    const value = parseInt(pomodoroInput.value)
-    timeDisplay.innerHTML = isNaN(value) ? '25:00': `${value}:00`
-    curDuration = 'pomodoro'
+    if(isPaused){
+        const value = parseInt(pomodoroInput.value)
+        timeDisplay.innerHTML = isNaN(value) ? '25:00': `${value}:00`
+        curDuration = 'pomodoro'
+    }
 })
 
 saveBtn.addEventListener('click', () => {
@@ -104,7 +119,26 @@ saveBtn.addEventListener('click', () => {
 
 })
 
+
 startBtn.addEventListener('click', () => {
+
+    if (timerInterval && !isPaused) {
+        clearInterval(timerInterval);
+        remainingTime = endTime - new Date().getTime();
+        isPaused = true;
+        startBtn.textContent = 'Resume';
+        return;
+    }
+
+    // RESUME
+    if (isPaused) {
+        endTime = new Date().getTime() + remainingTime;
+        startBtn.textContent = 'Pause';
+        timerInterval = startTimer(endTime);
+        isPaused = false;
+        return;
+    }
+
     let durationMinutes;
     if (curDuration === 'pomodoro') {
         durationMinutes = parseInt(pomodoroInput.value) || 25;
@@ -114,18 +148,26 @@ startBtn.addEventListener('click', () => {
         durationMinutes = parseInt(longBreakInput.value) || 10;
     }
 
-    const endTime = new Date(new Date().getTime() + durationMinutes * 60 * 1000)
+    endTime = new Date().getTime() + durationMinutes * 60 * 1000;
+    startBtn.textContent = 'Pause';
+    timerInterval = startTimer(endTime);
+    
+})
 
-    timeDisplay.innerHTML = `${String(durationMinutes).padStart(2, '0')}:00`
+function startTimer(endTime){
+    if (timerInterval) clearInterval(timerInterval);
 
-    const x = setInterval(() => {
+    return setInterval(() => {
             const now = new Date().getTime();
             const distance = endTime - now;
 
             if (distance < 0) {
-                clearInterval(x)
+                clearInterval(timerInterval)
                 timeDisplay.innerHTML = '00:00'
                 console.log('timer over')
+                timerInterval = null
+                isPaused = false
+                startBtn.innerHTML = 'Start'
                 return
             }
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -137,4 +179,27 @@ startBtn.addEventListener('click', () => {
             timeDisplay.innerHTML = `${formattedMinutes}:${formattedSeconds}`
     
     }, 1000)
+}
+
+resetAllBtn.addEventListener('click', () => {
+    resetSettings()
 })
+
+function resetSettings() {
+    pomodoroInput.value = 25
+    shortBreakInput.value = 5
+    longBreakInput.value = 15
+    if(curDuration === 'pomodoro') {
+        timeDisplay.innerHTML = String(pomodoroInput.value).padStart(2, '0') + ':00';
+    } else if(curDuration === 'short-break') {
+        timeDisplay.innerHTML = String(shortBreakInput.value).padStart(2, '0') + ':00';
+
+    } else {
+        timeDisplay.innerHTML = String(longBreakInput.value).padStart(2, '0') + ':00';
+
+    }
+
+    themeSelect.value = 'Ocean-Sunrise';
+    document.body.style.backgroundImage = `url('assets/images/background/Ocean-Sunrise.jpg')`
+    
+}
