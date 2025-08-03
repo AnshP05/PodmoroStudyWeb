@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Podomoro Study</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
     <script src="https://kit.fontawesome.com/c354fc2a79.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -91,20 +91,20 @@
         </div>
     </div>
     
-    <div class="settings-panel ">
+    <div class="settings-panel hidden">
         
         <div class="settings-inner">
             <div class="settings-content-wrapper">
             <div class="settings-tabs">
                 <ul>
-                    <li class="tab active">Timer</li>
-                    <li class="tab">Theme</li>
-                    <li class="tab">Alerts</li>
+                    <li class="tab active" id="timer-tab">Timer</li>
+                    <li class="tab" id="theme-tab">Theme</li>
+                    <li class="tab" id="alerts-tab">Alerts</li>
                 </ul>
             </div>
             <div class="settings-content">
                 <i class="fa-solid fa-x" id="x-btn"></i>
-                <div class="timer-settings-content hidden">
+                <div class="timer-settings-content">
                     <div class="title-wrapper">
                         <h2>Timer Settings</h2>
                     </div>
@@ -135,26 +135,26 @@
                     <div class="theme-dropdown">
                         <label for="theme-select">Select Theme:</label>
                         <select id="theme-select" name="theme-select">
-                            <option value="ocean-sunrise">Ocean Sunrise</option>
-                            <option value="fall-forest">Fall Forest</option>
-                            <option value="mountains">Mountains</option>
-                            <option value="nyc">Rainy New York City</option>
-                            <option value="desert-dunes">Desert Dunes</option>
-                            <option value="rainy-window">Rainy Window</option>
-                            <option value="galaxy">Galaxy</option>
-                            <option value="bookshelf">Bookshelf</option>
-                            <option value="sunset-glow">Sunset Glow</option>
-                            <option value="minimalist">Minimalist</option>
+                            <option value="Ocean-Sunrise">Ocean Sunrise</option>
+                            <option value="Fall-Forest">Fall Forest</option>
+                            <option value="Mountains">Mountains</option>
+                            <option value="NewYork-Rain">Rainy New York City</option>
+                            <option value="Desert-Dunes">Desert Dunes</option>
+                            <option value="Rainy-Window">Rainy Window</option>
+                            <option value="Galaxy">Galaxy</option>
+                            <option value="Bookshelf">Bookshelf</option>
+                            <option value="Sunset-Glow">Sunset Glow</option>
+                            <option value="Minimalist">Minimalist</option>
                             <option value="snowy-forest">Snowy Forest</option>
-                            <option value="lofi-Asthetic">Lofi-Asthetic</option>
-                            <option value="graident Blur">Graident Blur</option>
-                            <option value="code">Code</option>
-                            <option value="cozy-cafe">Cozy Cafe</option>
+                            <option value="Lo-Fi-Asthetic">Lofi-Asthetic</option>
+                            <option value="Graident-Blur">Graident Blur</option>
+                            <option value="Code">Code</option>
+                            <option value="Cozy-Cafe">Cozy Cafe</option>
                         </select>
                     </div>
                 </div>
-                <div class="alerts-settings-content ">
-                    <div class="alert-settings-div" >
+                <div class="alert-settings-content hidden">
+                    <div class="alert-settings-div">
                         <h2>Alerts Settings</h2>
                     </div>
                     <div class="form-group">

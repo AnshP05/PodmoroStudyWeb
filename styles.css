@@ -477,9 +477,9 @@ input.form-check-input:checked + label{
     backdrop-filter: blur(10px); /* Frosted glass effect */
 }
 
-.alerts-settings-content{
-    margin-top: -7.2rem;
-    margin-left: 2.12rem;
+.alert-settings-content{
+    margin-top: -8.2rem;
+    margin-left: 1.6rem;
     padding: 1rem;
 }
 
