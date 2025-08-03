@@ -13,6 +13,11 @@ const alertTab = document.getElementById('alerts-tab')
 
 const themeSelect = document.querySelector('.theme-dropdown')
 
+const timeDisplay = document.getElementById('time-display')
+const shortBreakLabel = document.getElementById('short-break')
+const longBreakLabel = document.getElementById('long-break')
+const pomodoroLabel = document.getElementById('pomodoro')
+
 settingsBtn.addEventListener('click', () => {
 	settingsPanel.classList.toggle('hidden')
 })
@@ -58,3 +63,12 @@ themeSelect.addEventListener('change', (e) => {
     document.body.style.backgroundImage = `url('${imgPath}')`
 })
 
+shortBreakLabel.addEventListener('click', () => {
+    timeDisplay.innerHTML = '5:00'
+})
+longBreakLabel.addEventListener('click', () => {
+    timeDisplay.innerHTML = '10:00'
+})
+pomodoroLabel.addEventListener('click', () => {
+    timeDisplay.innerHTML = '25:00'
+})
