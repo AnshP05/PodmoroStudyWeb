@@ -2,6 +2,7 @@ const settingsBtn = document.getElementById("settings")
 const settingsPanel = document.querySelector('.settings-panel')
 const closeBtn = document.querySelector('.close-btn')
 const settingsX = document.getElementById('x-btn')
+const startBtn = document.getElementById('start')
 
 const themeSettings = document.querySelector('.theme-settings-content')
 const alertSettings = document.querySelector('.alert-settings-content')
@@ -17,6 +18,13 @@ const timeDisplay = document.getElementById('time-display')
 const shortBreakLabel = document.getElementById('short-break')
 const longBreakLabel = document.getElementById('long-break')
 const pomodoroLabel = document.getElementById('pomodoro')
+
+const pomodoroInput = document.getElementById('pomodoro-duration')
+const shortBreakInput = document.getElementById('short-break-duration')
+const longBreakInput = document.getElementById('long-break-duration')
+
+const saveBtn = document.querySelector('.save-btn')
+let curDuration = 'pomodoro'
 
 settingsBtn.addEventListener('click', () => {
 	settingsPanel.classList.toggle('hidden')
@@ -64,11 +72,69 @@ themeSelect.addEventListener('change', (e) => {
 })
 
 shortBreakLabel.addEventListener('click', () => {
-    timeDisplay.innerHTML = '5:00'
+    const value = parseInt(shortBreakInput.value)
+    timeDisplay.innerHTML = isNaN(value) ? '5:00': `${value}:00`
+    curDuration = 'short-break'
 })
 longBreakLabel.addEventListener('click', () => {
-    timeDisplay.innerHTML = '10:00'
+    const value = parseInt(longBreakInput.value)
+    timeDisplay.innerHTML = isNaN(value) ? '15:00': `${value}:00`
+    curDuration = 'long-break'
 })
 pomodoroLabel.addEventListener('click', () => {
-    timeDisplay.innerHTML = '25:00'
+    const value = parseInt(pomodoroInput.value)
+    timeDisplay.innerHTML = isNaN(value) ? '25:00': `${value}:00`
+    curDuration = 'pomodoro'
+})
+
+saveBtn.addEventListener('click', () => {
+    settingsPanel.classList.add('hidden')
+
+    let value;
+    if(curDuration === 'pomodoro') {
+        value = parseInt(pomodoroInput.value)
+        timeDisplay.innerHTML = isNaN(value) ? '25:00': `${value}:00`
+    } else if(curDuration === 'short-break') {
+        value = parseInt(shortBreakInput.value)
+        timeDisplay.innerHTML = isNaN(value) ? '5:00': `${value}:00`
+    } else {
+        value = parseInt(longBreakInput.value)
+        timeDisplay.innerHTML = isNaN(value) ? '10:00': `${value}:00`
+    }
+
+})
+
+startBtn.addEventListener('click', () => {
+    let durationMinutes;
+    if (curDuration === 'pomodoro') {
+        durationMinutes = parseInt(pomodoroInput.value) || 25;
+    } else if (curDuration === 'short-break') {
+        durationMinutes = parseInt(shortBreakInput.value) || 5;
+    } else if (curDuration === 'long-break') {
+        durationMinutes = parseInt(longBreakInput.value) || 10;
+    }
+
+    const endTime = new Date(new Date().getTime() + durationMinutes * 60 * 1000)
+
+    timeDisplay.innerHTML = `${String(durationMinutes).padStart(2, '0')}:00`
+
+    const x = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = endTime - now;
+
+            if (distance < 0) {
+                clearInterval(x)
+                timeDisplay.innerHTML = '00:00'
+                console.log('timer over')
+                return
+            }
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            const formattedMinutes = String(minutes).padStart(2,'0')
+            const formattedSeconds = String(seconds).padStart(2,'0')
+
+            timeDisplay.innerHTML = `${formattedMinutes}:${formattedSeconds}`
+    
+    }, 1000)
 })
