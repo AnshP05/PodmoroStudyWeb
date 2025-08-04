@@ -175,7 +175,8 @@ html, body {
     white-space: nowrap;
 }
 
-input.form-check-input:checked + label{
+
+.active-mode + label{
     color: black;
     background-color: white;
 }
@@ -500,4 +501,15 @@ input.form-check-input:checked + label{
     margin-bottom: 0;
     z-index: 2;
 }
-
+@keyframes rotateOnce {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    
+}
+.rotate-once {
+    animation: rotateOnce 0.5s ease fowards;
+}

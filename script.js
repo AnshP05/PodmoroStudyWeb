@@ -91,6 +91,17 @@ pomodoroLabel.addEventListener('click', () => {
     switchMode('pomodoro', pomodoroInput, 25)
 })
 
+
+function setActiveLabel(mode) {
+    pomodoroLabel.classList.remove('active-mode')
+    shortBreakLabel.classList.remove('active-mode')
+    longBreakLabel.classList.remove('active-mode')
+
+    if (curDuration === 'pomodoro') pomodoroLabel.classList.add('active-mode');
+    if (curDuration === 'short-break') shortBreakLabel.classList.add('active-mode');
+    if (curDuration === 'long-break') longBreakLabel.classList.add('active-mode');
+} 
+
 function switchMode(mode, input, defaultVal) {
     if(timerInterval && !isPaused) {
         const confirmSwitch = confirm("Switching modes will reset the current timer. Continue?")
@@ -100,7 +111,7 @@ function switchMode(mode, input, defaultVal) {
         isPaused = false
         remainingTime = 0
         endTime = 0
-        startBtn.innerHTML = 'Start'
+        startBtn.innerHTML = 'Start' 
     }
 
     curDuration = mode
@@ -108,10 +119,20 @@ function switchMode(mode, input, defaultVal) {
     const duration = isNaN(value) ? defaultVal : value
     timeDisplay.innerHTML = `${String(duration).padStart(2, '0')}:00`
     if(isNaN(value)) input.value = defaultVal
+    setActiveLabel(mode)
 }
 
 saveBtn.addEventListener('click', () => {
     settingsPanel.classList.add('hidden')
+
+    if(timerInterval){
+        clearInterval(timerInterval)
+        timerInterval = null
+        isPaused = false
+        endTime = 0
+        remainingTime = 0
+        startBtn.innerHTML = 'Start'
+    }
 
     let value;
     if(curDuration === 'pomodoro') {
@@ -197,6 +218,17 @@ resetAllBtn.addEventListener('click', () => {
 })
 
 function resetSettings() {
+
+    if(timerInterval){
+        clearInterval(timerInterval)
+        timerInterval = null
+        isPaused = false
+        endTime = 0
+        remainingTime = 0
+        startBtn.innerHTML = 'Start'
+    }
+
+
     pomodoroInput.value = 25
     shortBreakInput.value = 5
     longBreakInput.value = 15
@@ -216,5 +248,29 @@ function resetSettings() {
 }
 
 resetBtn.addEventListener('click', () => {
-    
+    resetBtn.classList.add('rotate-once')
+
+    resetBtn.addEventListener('animationend', () => {
+        resetBtn.classList.remove('rotate-once');
+    }, { once: true });
+    if(timerInterval){
+        clearInterval(timerInterval)
+        timerInterval = null
+        isPaused = false
+        endTime = 0
+        remainingTime = 0
+        startBtn.innerHTML = 'Start'
+    }
+    resetTimer()
 })
+
+function resetTimer() {
+    if(curDuration === 'pomodoro') {
+        timeDisplay.innerHTML = String(pomodoroInput.value).padStart(2, '0') + ':00'
+    } else if(curDuration === 'short-break') {
+        timeDisplay.innerHTML = String(shortBreakInput.value).padStart(2, '0') + ':00'
+
+    } else {
+        timeDisplay.innerHTML = String(longBreakInput.value).padStart(2, '0') + ':00'
+    }
+}
