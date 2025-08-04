@@ -1,3 +1,4 @@
+
 const settingsBtn = document.getElementById("settings")
 const settingsPanel = document.querySelector('.settings-panel')
 const closeBtn = document.querySelector('.close-btn')
@@ -34,6 +35,24 @@ let endTime = 0
 
 const resetAllBtn = document.querySelector('.reset-btn')
 
+const playlist = [
+    {
+        title:'Chill lofi study music',
+        artist: 'lofidreams99',
+        file: 'assets/music/Chill lofi study music.mp3',
+        cover:'assets/images/spotify/placeholder2.jpg'
+    }
+]
+const audio = document.getElementById('audio-player')
+const progressBar = document.getElementById('custom-progress-bar')
+const progressContainer = document.getElementById('custom-progress-container')
+const coverImg = document.querySelector(".cover-art")
+const songTitle = document.getElementById("track-title")
+const songArtist = document.getElementById("track-artist")
+let currentTrack = 0
+let playPauseBtn = document.getElementById('play')
+let isPlaying = false
+loadTrack(currentTrack)
 
 settingsBtn.addEventListener('click', () => {
 	settingsPanel.classList.toggle('hidden')
@@ -274,3 +293,55 @@ function resetTimer() {
         timeDisplay.innerHTML = String(longBreakInput.value).padStart(2, '0') + ':00'
     }
 }
+
+audio.addEventListener('timeupdate', () => {
+    if(!audio.duration) return
+    const percent = (audio.currentTime / audio.duration) * 100
+    progressBar.style.width = `${percent}%`
+    const formatTime = (time) => {
+        const minutes = Math.floor(time / 60);
+        const seconds = Math.floor(time % 60);
+        return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    };
+
+    document.getElementById('current-time').textContent = formatTime(audio.currentTime);
+    document.getElementById('duration').textContent = formatTime(audio.duration);
+})
+
+progressContainer.addEventListener('click', (e) =>{
+    const rect = progressContainer.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const percent = x / rect.width
+    audio.currentTime = percent * audio.duration
+    audio.play()
+})
+
+function loadTrack(index) {
+    const track = playlist[index]
+    audio.src = track.file
+    coverImg.src = track.cover
+    songTitle.textContent = track.title;
+    songArtist.textContent = track.artist;
+}
+
+
+
+audio.addEventListener('play', () => {
+    playPauseBtn.classList.remove('fa-play');
+    playPauseBtn.classList.add('fa-pause');
+    isPlaying = true;
+});
+
+audio.addEventListener('pause', () => {
+    playPauseBtn.classList.remove('fa-pause');
+    playPauseBtn.classList.add('fa-play');
+    isPlaying = false;
+});
+
+playPauseBtn.addEventListener('click', () => {
+    if (audio.paused) {
+        audio.play();
+    } else {
+        audio.pause();
+    }
+});
