@@ -516,3 +516,15 @@ html, body {
   background-color: #1db954; 
   transition: width 0.2s ease;
 }
+
+#toggle-alerts {
+    font-size: 2rem;
+    color: #1db954;
+    transition: color 0.3s, transform 0.3s;
+    cursor: pointer;
+}
+
+.animate {
+    color: #ccc;
+    transform: rotate(-20deg);
+}

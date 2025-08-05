@@ -42,6 +42,9 @@ const progressCircle = document.querySelector('.progress-circle')
 progressCircle.style.strokeDasharray = circumference;
 progressCircle.style.strokeDashoffset = 0;
 
+const toggleAlertsBtn = document.getElementById('toggle-alerts')
+let alertsOn = true
+
 const playlist = [
     {
         title:'Chill lofi study music',
@@ -472,4 +475,20 @@ nextBtn.addEventListener('click', () => {
     currentTrack = (currentTrack + 1) % playlist.length
     loadTrack(currentTrack)
     audio.play()
+})
+
+toggleAlertsBtn.addEventListener('click', () => {
+    if(alertsOn){
+        toggleAlertsBtn.classList.remove('fa-toggle-on')
+        toggleAlertsBtn.classList.add('fa-toggle-off')
+        alertsOn = false
+    } else {
+        toggleAlertsBtn.classList.add('fa-toggle-on')
+        toggleAlertsBtn.classList.remove('fa-toggle-off')
+        alertsOn = true
+    }
+
+    toggleAlertsBtn.classList.add('animate')
+    setTimeout(() => toggleAlertsBtn.classList.remove('animate'), 200)
+        
 })
