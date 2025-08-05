@@ -35,6 +35,13 @@ let endTime = 0
 
 const resetAllBtn = document.querySelector('.reset-btn')
 
+const radius = 140;
+const circumference = 2 * Math.PI * radius;
+const progressRing = document.getElementById('progress-ring')
+const progressCircle = document.querySelector('.progress-circle')
+progressCircle.style.strokeDasharray = circumference;
+progressCircle.style.strokeDashoffset = 0;
+
 const playlist = [
     {
         title:'Chill lofi study music',
@@ -101,7 +108,7 @@ let recentlySaved = false
 let curPomodoroTimer = 25
 let curShortBreakTimer = 5
 let curLongBreakTimer = 15
-let curTheme = themeSelect.value
+let curTheme = 'Ocean-Sunrise'
 let lastSavedPomodoro = curPomodoroTimer;
 let lastSavedShortBreak = curShortBreakTimer;
 let lastSavedLongBreak = curLongBreakTimer;
@@ -109,56 +116,60 @@ let lastSavedTheme = themeSelect.value;
 loadTrack(currentTrack)
 
 settingsBtn.addEventListener('click', () => {
-    settingsPanel.classList.toggle('hidden');
-    recentlySaved = false;
+    settingsPanel.classList.toggle('hidden')
+    recentlySaved = false
 
-    // Store current values
-    lastSavedPomodoro = curPomodoroTimer;
-    lastSavedShortBreak = curShortBreakTimer;
-    lastSavedLongBreak = curLongBreakTimer;
-    lastSavedTheme = themeSelect.value;
 
-    // Set inputs to current values
-    pomodoroInput.value = curPomodoroTimer;
-    shortBreakInput.value = curShortBreakTimer;
-    longBreakInput.value = curLongBreakTimer;
-    themeSelect.value = curTheme || lastSavedTheme;
-});
+    lastSavedPomodoro = curPomodoroTimer
+    lastSavedShortBreak = curShortBreakTimer
+    lastSavedLongBreak = curLongBreakTimer
+    lastSavedTheme = curTheme
+
+    pomodoroInput.value = curPomodoroTimer
+    shortBreakInput.value = curShortBreakTimer
+    longBreakInput.value = curLongBreakTimer
+    themeSelect.value = curTheme || lastSavedTheme
+})
 
 function revertSettings() {
-    pomodoroInput.value = lastSavedPomodoro;
-    shortBreakInput.value = lastSavedShortBreak;
-    longBreakInput.value = lastSavedLongBreak;
-    themeSelect.value = lastSavedTheme;
+    pomodoroInput.value = lastSavedPomodoro
+    shortBreakInput.value = lastSavedShortBreak
+    longBreakInput.value = lastSavedLongBreak
+    themeSelect.value = lastSavedTheme
+
+    const imgPath = `assets/images/background/${selectedTheme}.jpg`
+    document.body.style.backgroundImage = `url('${imgPath}')`
 
     curPomodoroTimer = lastSavedPomodoro;
     curShortBreakTimer = lastSavedShortBreak;
     curLongBreakTimer = lastSavedLongBreak;
-    // If you use a curTheme variable, set it here too
+    curTheme = lastSavedTheme
 }
 
 closeBtn.addEventListener('click', () => {
-    if (!recentlySaved) revertSettings();
-    settingsPanel.classList.add('hidden');
-    recentlySaved = false;
-});
+    settingsPanel.classList.add('hidden')
+    recentlySaved = false
+    if (!recentlySaved) {revertSettings()}
+})
 
 settingsX.addEventListener('click', () => {
-    if (!recentlySaved) revertSettings();
-    settingsPanel.classList.add('hidden');
-    recentlySaved = false;
-});
-saveBtn.addEventListener('click', () => {
     settingsPanel.classList.add('hidden')
+    recentlySaved = false
+    if (!recentlySaved) {revertSettings()}
 
-    curPomodoroTimer = parseInt(pomodoroInput.value);
-    curShortBreakTimer = parseInt(shortBreakInput.value);
-    curLongBreakTimer = parseInt(longBreakInput.value);
-    lastSavedPomodoro = curPomodoroTimer;
-    lastSavedShortBreak = curShortBreakTimer;
-    lastSavedLongBreak = curLongBreakTimer;
-    lastSavedTheme = themeSelect.value;
-    recentlySaved = true;
+})
+saveBtn.addEventListener('click', () => {
+
+    curPomodoroTimer = parseInt(pomodoroInput.value)
+    curShortBreakTimer = parseInt(shortBreakInput.value)
+    curLongBreakTimer = parseInt(longBreakInput.value)
+    curTheme = themeSelect.value
+    lastSavedPomodoro = curPomodoroTimer
+    lastSavedShortBreak = curShortBreakTimer
+    lastSavedLongBreak = curLongBreakTimer
+    lastSavedTheme = themeSelect.value
+    recentlySaved = true
+
     if(timerInterval){
         clearInterval(timerInterval)
         timerInterval = null
@@ -293,11 +304,11 @@ startBtn.addEventListener('click', () => {
 
     endTime = new Date().getTime() + durationMinutes * 60 * 1000;
     startBtn.textContent = 'Pause';
-    timerInterval = startTimer(endTime);
+    timerInterval = startTimer(endTime, durationMinutes);
     
 })
 
-function startTimer(endTime){
+function startTimer(endTime, durationMinutes){
     if (timerInterval) clearInterval(timerInterval);
 
     return setInterval(() => {
@@ -320,6 +331,9 @@ function startTimer(endTime){
             const formattedSeconds = String(seconds).padStart(2,'0')
 
             timeDisplay.innerHTML = `${formattedMinutes}:${formattedSeconds}`
+
+            const totalTime = endTime - (endTime - durationMinutes * 60 * 1000)
+            updateProgressRing(distance, totalTime)
     
     }, 1000)
 }
@@ -376,6 +390,7 @@ resetBtn.addEventListener('click', () => {
 })
 
 function resetTimer() {
+    updateProgressRing(1,1)
     if(curDuration === 'pomodoro') {
         timeDisplay.innerHTML = String(pomodoroInput.value).padStart(2, '0') + ':00'
     } else if(curDuration === 'short-break') {
@@ -399,6 +414,16 @@ audio.addEventListener('timeupdate', () => {
     document.getElementById('current-time').textContent = formatTime(audio.currentTime);
     document.getElementById('duration').textContent = formatTime(audio.duration);
 })
+
+function updateProgressRing(timeLeft, totalTime) {
+    if (totalTime === 0) {
+        progressCircle.style.strokeDashoffset = 0;
+        return;
+    }
+    const percent = timeLeft / totalTime
+    const offset = circumference * (1-percent)
+    progressCircle.style.strokeDashoffset = offset
+}
 
 progressContainer.addEventListener('click', (e) =>{
     const rect = progressContainer.getBoundingClientRect()
