@@ -49,9 +49,12 @@ const progressContainer = document.getElementById('custom-progress-container')
 const coverImg = document.querySelector(".cover-art")
 const songTitle = document.getElementById("track-title")
 const songArtist = document.getElementById("track-artist")
+const prevBtn = document.getElementById('prev')
+const nextBtn = document.getElementById('next')
 let currentTrack = 0
 let playPauseBtn = document.getElementById('play')
 let isPlaying = false
+
 loadTrack(currentTrack)
 
 settingsBtn.addEventListener('click', () => {
@@ -325,7 +328,6 @@ function loadTrack(index) {
 }
 
 
-
 audio.addEventListener('play', () => {
     playPauseBtn.classList.remove('fa-play');
     playPauseBtn.classList.add('fa-pause');
@@ -345,3 +347,24 @@ playPauseBtn.addEventListener('click', () => {
         audio.pause();
     }
 });
+
+prevBtn.addEventListener('click', () => {
+    if(audio.duration > 0){
+        audio.pause()
+        audio.time = 0
+        loadTrack(currentTrack)
+        audio.play()
+    } else {
+        audio.pause()
+        currentTrack = (currentTrack - 1 + playlist.length) % playlist.length
+        loadTrack(currentTrack)
+        audio.play()
+    }
+})
+
+nextBtn.addEventListener('click', () => {
+    audio.pause()
+    (currentTrack + 1) % playlist.length
+    loadTrack(currentTrack)
+    audio.play()
+})
