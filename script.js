@@ -41,7 +41,50 @@ const playlist = [
         artist: 'lofidreams99',
         file: 'assets/music/Chill lofi study music.mp3',
         cover:'assets/images/spotify/placeholder2.jpg'
+    }, 
+    {
+        title:'Flamenco',
+        artist: 'vividillustrate',
+        file: 'assets/music/Flamenco.mp3',
+        cover:'assets/images/spotify/placeholder2.jpg'
+    }, 
+    {
+        title:'Lofi Study Beat 1',
+        artist: 'officeMIKADO',
+        file: 'assets/music/Lofi Study Beat 1.mp3',
+        cover:'assets/images/spotify/placeholder2.jpg'
+    },
+    {
+        title:'Lofi Study Beat 2',
+        artist: 'officeMIKADO',
+        file: 'assets/music/Lofi Study Beat 2.mp3',
+        cover:'assets/images/spotify/placeholder2.jpg'
+    },
+    {
+        title:'Lofi Study Beat 5',
+        artist: 'officeMIKADO',
+        file: 'assets/music/Lofi Study Beat 5.mp3',
+        cover:'assets/images/spotify/placeholder2.jpg'
+    },
+    {
+        title:'Lofi Study Beat 8',
+        artist: 'officeMIKADO',
+        file: 'assets/music/Lofi Study Beat 8.mp3',
+        cover:'assets/images/spotify/placeholder2.jpg'
+    },
+    {
+        title:'Lofi Study Beat 16',
+        artist: 'officeMIKADO',
+        file: 'assets/music/Lofi Study Beat 16.mp3',
+        cover:'assets/images/spotify/placeholder2.jpg'
+    },
+    {
+        title:'Lofi Study Beat 24',
+        artist: 'officeMIKADO',
+        file: 'assets/music/Lofi Study Beat 24.mp3',
+        cover:'assets/images/spotify/placeholder2.jpg'
     }
+    
 ]
 const audio = document.getElementById('audio-player')
 const progressBar = document.getElementById('custom-progress-bar')
@@ -54,18 +97,89 @@ const nextBtn = document.getElementById('next')
 let currentTrack = 0
 let playPauseBtn = document.getElementById('play')
 let isPlaying = false
-
+let recentlySaved = false
+let curPomodoroTimer = 25
+let curShortBreakTimer = 5
+let curLongBreakTimer = 15
+let curTheme = themeSelect.value
+let lastSavedPomodoro = curPomodoroTimer;
+let lastSavedShortBreak = curShortBreakTimer;
+let lastSavedLongBreak = curLongBreakTimer;
+let lastSavedTheme = themeSelect.value;
 loadTrack(currentTrack)
 
 settingsBtn.addEventListener('click', () => {
-	settingsPanel.classList.toggle('hidden')
-})
+    settingsPanel.classList.toggle('hidden');
+    recentlySaved = false;
+
+    // Store current values
+    lastSavedPomodoro = curPomodoroTimer;
+    lastSavedShortBreak = curShortBreakTimer;
+    lastSavedLongBreak = curLongBreakTimer;
+    lastSavedTheme = themeSelect.value;
+
+    // Set inputs to current values
+    pomodoroInput.value = curPomodoroTimer;
+    shortBreakInput.value = curShortBreakTimer;
+    longBreakInput.value = curLongBreakTimer;
+    themeSelect.value = curTheme || lastSavedTheme;
+});
+
+function revertSettings() {
+    pomodoroInput.value = lastSavedPomodoro;
+    shortBreakInput.value = lastSavedShortBreak;
+    longBreakInput.value = lastSavedLongBreak;
+    themeSelect.value = lastSavedTheme;
+
+    curPomodoroTimer = lastSavedPomodoro;
+    curShortBreakTimer = lastSavedShortBreak;
+    curLongBreakTimer = lastSavedLongBreak;
+    // If you use a curTheme variable, set it here too
+}
+
 closeBtn.addEventListener('click', () => {
+    if (!recentlySaved) revertSettings();
+    settingsPanel.classList.add('hidden');
+    recentlySaved = false;
+});
+
+settingsX.addEventListener('click', () => {
+    if (!recentlySaved) revertSettings();
+    settingsPanel.classList.add('hidden');
+    recentlySaved = false;
+});
+saveBtn.addEventListener('click', () => {
     settingsPanel.classList.add('hidden')
 
-})
-settingsX.addEventListener('click', () => {
-    settingsPanel.classList.add('hidden')
+    curPomodoroTimer = parseInt(pomodoroInput.value);
+    curShortBreakTimer = parseInt(shortBreakInput.value);
+    curLongBreakTimer = parseInt(longBreakInput.value);
+    lastSavedPomodoro = curPomodoroTimer;
+    lastSavedShortBreak = curShortBreakTimer;
+    lastSavedLongBreak = curLongBreakTimer;
+    lastSavedTheme = themeSelect.value;
+    recentlySaved = true;
+    if(timerInterval){
+        clearInterval(timerInterval)
+        timerInterval = null
+        isPaused = false
+        endTime = 0
+        remainingTime = 0
+        startBtn.innerHTML = 'Start'
+    }
+
+    let value;
+    if(curDuration === 'pomodoro') {
+        value = parseInt(pomodoroInput.value)
+        timeDisplay.innerHTML = isNaN(value) ? '25:00': `${value}:00`
+    } else if(curDuration === 'short-break') {
+        value = parseInt(shortBreakInput.value)
+        timeDisplay.innerHTML = isNaN(value) ? '5:00': `${value}:00`
+    } else {
+        value = parseInt(longBreakInput.value)
+        timeDisplay.innerHTML = isNaN(value) ? '10:00': `${value}:00`
+    }
+
 })
 
 themeTab.addEventListener('click', () =>{
@@ -144,31 +258,6 @@ function switchMode(mode, input, defaultVal) {
     setActiveLabel(mode)
 }
 
-saveBtn.addEventListener('click', () => {
-    settingsPanel.classList.add('hidden')
-
-    if(timerInterval){
-        clearInterval(timerInterval)
-        timerInterval = null
-        isPaused = false
-        endTime = 0
-        remainingTime = 0
-        startBtn.innerHTML = 'Start'
-    }
-
-    let value;
-    if(curDuration === 'pomodoro') {
-        value = parseInt(pomodoroInput.value)
-        timeDisplay.innerHTML = isNaN(value) ? '25:00': `${value}:00`
-    } else if(curDuration === 'short-break') {
-        value = parseInt(shortBreakInput.value)
-        timeDisplay.innerHTML = isNaN(value) ? '5:00': `${value}:00`
-    } else {
-        value = parseInt(longBreakInput.value)
-        timeDisplay.innerHTML = isNaN(value) ? '10:00': `${value}:00`
-    }
-
-})
 
 
 startBtn.addEventListener('click', () => {
@@ -349,22 +438,13 @@ playPauseBtn.addEventListener('click', () => {
 });
 
 prevBtn.addEventListener('click', () => {
-    if(audio.duration > 0){
-        audio.pause()
-        audio.time = 0
-        loadTrack(currentTrack)
-        audio.play()
-    } else {
-        audio.pause()
         currentTrack = (currentTrack - 1 + playlist.length) % playlist.length
         loadTrack(currentTrack)
         audio.play()
-    }
 })
 
 nextBtn.addEventListener('click', () => {
-    audio.pause()
-    (currentTrack + 1) % playlist.length
+    currentTrack = (currentTrack + 1) % playlist.length
     loadTrack(currentTrack)
     audio.play()
 })

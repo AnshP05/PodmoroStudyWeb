@@ -38,7 +38,7 @@ html, body {
     border: 5px solid black;
     color: black;
     width: 15vw;
-    height: 16vh;
+    height: 15vh;
     padding: 0;
     position: relative;
     border-radius: 15%;
@@ -63,8 +63,13 @@ html, body {
 }
 
 .track-details {
-    width: 10rem;
-    margin: -1rem;
+    width: 11rem;
+    margin-top: -2rem;
+}
+
+#track-title {
+    margin-top: 2.5rem;
+    margin-bottom: -1rem;
 }
 
 .music-bottom {
@@ -80,7 +85,7 @@ html, body {
     justify-content: space-between;
     position: absolute;
     top: 100px;
-    margin-top: -10px;
+    margin-top: -1rem;
 }
 
 .music-controls {
