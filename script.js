@@ -510,6 +510,8 @@ darkModeSelect.addEventListener('click', () => {
         darkModeSelect.classList.remove('fa-toggle-on')
         unsetDarkMode()
     }
+    darkModeSelect.classList.add('animate')
+    setTimeout(() => darkModeSelect.classList.remove('animate'), 200)
 })
 
 
@@ -525,17 +527,19 @@ function setDarkMode() {
     shortBreakLabelEl.classList.add('dark-mode')
     longBreakLabelEl.classList.add('dark-mode')
     timeDisplay.classList.add('dark-mode')
+    settingsPanel.classList.add('dark-mode')
 }
 
 function unsetDarkMode() {
-    startBtn.classList.remove('dark-mode');
-    saveBtn.classList.remove('dark-mode');
-    resetBtn.classList.remove('dark-mode');
-    closeBtn.classList.remove('dark-mode');
-    progressCircle.classList.remove('dark-mode');
-    progressCircleBackground.classList.remove('dark-mode');
-    pomodoroLabelEl.classList.remove('dark-mode');
-    shortBreakLabelEl.classList.remove('dark-mode');
-    longBreakLabelEl.classList.remove('dark-mode');
+    startBtn.classList.remove('dark-mode')
+    saveBtn.classList.remove('dark-mode')
+    resetBtn.classList.remove('dark-mode')
+    closeBtn.classList.remove('dark-mode')
+    progressCircle.classList.remove('dark-mode')
+    progressCircleBackground.classList.remove('dark-mode')
+    pomodoroLabelEl.classList.remove('dark-mode')
+    shortBreakLabelEl.classList.remove('dark-mode')
+    longBreakLabelEl.classList.remove('dark-mode')
     timeDisplay.classList.remove('dark-mode')
+    settingsPanel.classList.remove('dark-mode')
 }

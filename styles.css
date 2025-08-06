@@ -319,9 +319,12 @@ html, body {
 }
 
 .settings-content-wrapper {
+    position: relative;
+    padding-left: 1rem;
+    height: auto;
     display: flex;
     flex-direction: row;
-    width: 100%;
+    width: 75%;
     height: 85%;
 }
 .settings-tabs {
@@ -342,8 +345,7 @@ html, body {
 
 
 .settings-content {
-    width: 75%;
-    padding-left: 1rem;
+    position: relative;
     height: auto;
 }
 
@@ -519,7 +521,7 @@ html, body {
   transition: width 0.2s ease;
 }
 
-#toggle-alerts, #darkMode-select {
+#toggle-alerts{
     font-size: 2rem;
     color: #1db954;
     transition: color 0.3s, transform 0.3s;
@@ -552,6 +554,14 @@ html, body {
   border: 1px solid #333;
 }
 
+.start-btn.dark-mode:hover,
+.save-btn.dark-mode:hover,
+.reset-btn.dark-mode:hover,
+.close-btn.dark-mode:hover {
+  background-color: #2f3438;
+}
+
+
 .form-check label.dark-mode {
   color: #b0b0b0;
   background-color: #23272a;
@@ -559,8 +569,9 @@ html, body {
 }
 
 .active-mode + label.dark-mode {
-  color: #23272a;
-  background-color: #f5f5f5;
+  background-color: #1db954;
+  color: #ffffff;
+  border: 2px solid #1db954;
 }
 
 
@@ -574,4 +585,53 @@ html, body {
 
 .progress-circle.dark-mode {
   stroke: #1db954;
+}
+
+.settings-panel.dark-mode {
+    border: 1px solid #333;
+    background-color: #1e1e1e;
+}
+
+.tab.dark-mode {
+    background-color: #23272a;
+    color: #b0b0b0;
+}
+
+#darkMode-select {
+    color: #1db954;
+    transition: color 0.3s, transform 0.3s;
+    cursor: pointer;
+    margin-left: 1rem;
+}
+
+.toggle-dark-mode-row {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#darkMode-label {
+    font-size: 2rem;
+}
+
+.settings-section { 
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    min-height: 350px;
+    background: inherit; /* or your panel bg */
+    transition: opacity 0.2s;
+    opacity: 1;
+}
+
+.settings-section.hidden {
+    opacity: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.settings-section:not(.hidden) {
+    z-index: 1;
 }
