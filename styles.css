@@ -519,7 +519,7 @@ html, body {
   transition: width 0.2s ease;
 }
 
-#toggle-alerts {
+#toggle-alerts, #darkMode-select {
     font-size: 2rem;
     color: #1db954;
     transition: color 0.3s, transform 0.3s;
@@ -536,4 +536,42 @@ html, body {
 .animate {
     color: #ccc;
     transform: rotate(-10deg);
+}
+
+#time-display.dark-mode {
+    color: #f0f0f0;
+    text-shadow: 0 0 10px rgba(255,255,255,0.3)
+}
+
+.start-btn.dark-mode,
+.save-btn.dark-mode,
+.reset-btn.dark-mode,
+.close-btn.dark-mode {
+  background-color: #23272a;
+  color: #f0f0f0;
+  border: 1px solid #333;
+}
+
+.form-check label.dark-mode {
+  color: #b0b0b0;
+  background-color: #23272a;
+  border: 2px solid #444;
+}
+
+.active-mode + label.dark-mode {
+  color: #23272a;
+  background-color: #f5f5f5;
+}
+
+
+#toggle-alerts.dark-mode {
+  color: #4caf50;
+}
+
+.progress-background.dark-mode {
+  stroke: #444;
+}
+
+.progress-circle.dark-mode {
+  stroke: #1db954;
 }

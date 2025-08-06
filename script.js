@@ -15,11 +15,16 @@ const themeTab = document.getElementById('theme-tab')
 const alertTab = document.getElementById('alerts-tab')
 
 const themeSelect = document.querySelector('#theme-select')
+const darkModeSelect = document.getElementById('darkMode-select')
+let isDarkMode = false
 
 const timeDisplay = document.getElementById('time-display')
 const shortBreakLabel = document.getElementById('short-break')
 const longBreakLabel = document.getElementById('long-break')
 const pomodoroLabel = document.getElementById('pomodoro')
+const pomodoroLabelEl = document.querySelector('label[for="pomodoro"]');
+const shortBreakLabelEl = document.querySelector('label[for="short-break"]');
+const longBreakLabelEl = document.querySelector('label[for="long-break"]');
 
 const pomodoroInput = document.getElementById('pomodoro-duration')
 const shortBreakInput = document.getElementById('short-break-duration')
@@ -39,8 +44,9 @@ const radius = 140;
 const circumference = 2 * Math.PI * radius;
 const progressRing = document.getElementById('progress-ring')
 const progressCircle = document.querySelector('.progress-circle')
-progressCircle.style.strokeDasharray = circumference;
-progressCircle.style.strokeDashoffset = 0;
+const progressCircleBackground = document.querySelector('.progress-background')
+progressCircle.style.strokeDasharray = circumference
+progressCircle.style.strokeDashoffset = 0
 
 const toggleAlertsBtn = document.getElementById('toggle-alerts')
 let alertsOn = true
@@ -492,3 +498,44 @@ toggleAlertsBtn.addEventListener('click', () => {
     setTimeout(() => toggleAlertsBtn.classList.remove('animate'), 200)
         
 })
+
+darkModeSelect.addEventListener('click', () => {
+    isDarkMode = !isDarkMode
+    if(isDarkMode){
+        darkModeSelect.classList.remove('fa-toggle-off')
+        darkModeSelect.classList.add('fa-toggle-on')
+        setDarkMode()
+    } else {
+        darkModeSelect.classList.add('fa-toggle-off')
+        darkModeSelect.classList.remove('fa-toggle-on')
+        unsetDarkMode()
+    }
+})
+
+
+
+function setDarkMode() {
+    startBtn.classList.add('dark-mode')
+    saveBtn.classList.add('dark-mode')
+    resetBtn.classList.add('dark-mode')
+    closeBtn.classList.add('dark-mode')
+    progressCircle.classList.add('dark-mode')
+    progressCircleBackground.classList.add('dark-mode')
+    pomodoroLabelEl.classList.add('dark-mode')
+    shortBreakLabelEl.classList.add('dark-mode')
+    longBreakLabelEl.classList.add('dark-mode')
+    timeDisplay.classList.add('dark-mode')
+}
+
+function unsetDarkMode() {
+    startBtn.classList.remove('dark-mode');
+    saveBtn.classList.remove('dark-mode');
+    resetBtn.classList.remove('dark-mode');
+    closeBtn.classList.remove('dark-mode');
+    progressCircle.classList.remove('dark-mode');
+    progressCircleBackground.classList.remove('dark-mode');
+    pomodoroLabelEl.classList.remove('dark-mode');
+    shortBreakLabelEl.classList.remove('dark-mode');
+    longBreakLabelEl.classList.remove('dark-mode');
+    timeDisplay.classList.remove('dark-mode')
+}
