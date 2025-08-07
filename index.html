@@ -137,9 +137,13 @@
                     <div class="title-wrapper">
                         <h2>Theme Settings</h2>
                     </div>
-                    <div class="theme-dropdown">
-                        <label for="theme-select">Select Light-Mode Theme:</label>
-                        <select id="theme-select" name="theme-select">
+                    <div class="theme-dropdown-row">
+                        <div class="theme-select-labels">
+                            <label for="theme-select" class="'theme-labels">Select Light-Mode Theme:</label>
+                            <label for="dark-mode-theme-select">Select Dark-Mode Theme:</label>
+                        </div>
+                        <div class="theme-select-dropdowns">
+                            <select id="theme-select" name="theme-select" class="theme-select">
                             <option value="Ocean-Sunrise">Ocean Sunrise</option>
                             <option value="Fall-Forest">Fall Forest</option>
                             <option value="Mountains">Mountains</option>
@@ -153,12 +157,14 @@
                             <option value="Futuristic">Futuristic</option>
                             <option value="Lofi-Asthetic">Lofi-Asthetic</option>
                             <option value="Graident-Blur">Graident Blur</option>
-                            <option value="Code">Code</option>
+                            
                             <option value="Cozy-Cafe">Cozy Cafe</option>
                         </select>
-                        <select name="dark-mode-theme-select" id="dark-mode-theme-select">
-
+                        <select name="dark-mode-theme-select" id="dark-mode-theme-select" class="theme-select">
+                            <option value="Code">Code</option>
                         </select>
+                        </div>
+                        
                     </div>
                     <div class="toggle-dark-mode-row">
                         <label for="darkMode-select">Enable Dark Mode</label>

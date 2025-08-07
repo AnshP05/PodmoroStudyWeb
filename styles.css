@@ -283,11 +283,18 @@ html, body {
   transition: stroke-dashoffset 1s linear;
 }
 
+.hidden {
+    display: none;
+    pointer-events: none;
+    opacity: 0;
+}
+
 .settings-panel {
     background-color: rgba(0, 0, 0, 0.9); /* Slight transparency */
     backdrop-filter: blur(10px); /* Frosted glass effect */
     width: 30vw; /* Make it broader */
-    height: fit-content;
+    min-height: 50vh;
+    height: auto;
     color: white;
     padding: 1.5rem;
     border-radius: 1rem;
@@ -316,7 +323,8 @@ html, body {
     display: flex;
     flex-direction: row;
     width: 75%;
-    height: 85%;
+    height: 100%;
+    min-height: 100%;
 }
 .settings-tabs {
     width: 25%;
@@ -327,6 +335,7 @@ html, body {
     gap: 1rem;
     padding-right: 1rem;
     font-size: 2.5rem;
+    justify-content: flex-start;
 }
 .settings-tabs ul {
   padding: 0;
@@ -448,13 +457,21 @@ html, body {
 }
 
 
-#theme-select, #sound-select{
+.theme-select, #sound-select {
     color: white;
-    width: 15rem;
+    width: 10rem;
     font-family: 'The Girl Next Door', roboto;
-    font-size: 1.2rem;
+    white-space: nowrap;
+    margin-right: 4.1rem;
+    font-size: 1.3rem;
     background-color: rgba(0, 0, 0, 0.9); /* Slight transparency */
     backdrop-filter: blur(10px); /* Frosted glass effect */
+}
+
+.theme-labels{
+    margin-left: 1rem;
+    margin-right: 1rem;
+    font-size: 1.3rem;
 }
 
 .alert-settings-content{
@@ -623,4 +640,27 @@ html, body {
     display: block;
     opacity: 1;
     z-index: 9999;
+}
+
+.theme-dropdown-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+
+.theme-select-labels {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem; 
+}
+
+.theme-select-dropdowns {
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem; 
+}
+
+.theme-select-labels label,
+.theme-select-dropdowns select {
+    min-width: 180px; /* adjust as needed for alignment */
 }
