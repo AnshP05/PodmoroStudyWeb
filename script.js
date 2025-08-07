@@ -14,7 +14,8 @@ const timerTab = document.getElementById('timer-tab')
 const themeTab = document.getElementById('theme-tab')
 const alertTab = document.getElementById('alerts-tab')
 
-const themeSelect = document.querySelector('#theme-select')
+const lightModeThemeSelect = document.getElementById('light-mode-theme-select')
+const darkModeThemeSelect = document.getElementById('dark-mode-theme-select')
 const darkModeSelect = document.getElementById('darkMode-select')
 let isDarkMode = false
 
@@ -118,10 +119,13 @@ let curPomodoroTimer = 25
 let curShortBreakTimer = 5
 let curLongBreakTimer = 15
 let curTheme = 'Ocean-Sunrise'
-let lastSavedPomodoro = curPomodoroTimer;
-let lastSavedShortBreak = curShortBreakTimer;
-let lastSavedLongBreak = curLongBreakTimer;
-let lastSavedTheme = themeSelect.value;
+let lastSavedPomodoro = curPomodoroTimer
+let lastSavedShortBreak = curShortBreakTimer
+let lastSavedLongBreak = curLongBreakTimer
+let lastSavedTheme = lightModeThemeSelect.value
+let lastSavedLightTheme = lightModeThemeSelect.value
+let lastSavedDarkTheme = darkModeThemeSelect.value
+let lastSavedIsDarkMode = isDarkMode
 loadTrack(currentTrack)
 
 settingsBtn.addEventListener('click', () => {
@@ -132,22 +136,39 @@ settingsBtn.addEventListener('click', () => {
     lastSavedPomodoro = curPomodoroTimer
     lastSavedShortBreak = curShortBreakTimer
     lastSavedLongBreak = curLongBreakTimer
-    lastSavedTheme = curTheme
+    lastSavedDarkTheme = darkModeThemeSelect.value
+    lastSavedLightTheme = lightModeThemeSelect.value
+    lastSavedIsDarkMode = isDarkMode
 
     pomodoroInput.value = curPomodoroTimer
     shortBreakInput.value = curShortBreakTimer
     longBreakInput.value = curLongBreakTimer
-    themeSelect.value = curTheme || lastSavedTheme
+    lightModeThemeSelect.value = curTheme || lastSavedLightTheme
+    darkModeThemeSelect.value = lastSavedDarkTheme
 })
 
 function revertSettings() {
     pomodoroInput.value = lastSavedPomodoro
     shortBreakInput.value = lastSavedShortBreak
     longBreakInput.value = lastSavedLongBreak
-    themeSelect.value = lastSavedTheme
+    lightModeThemeSelect.value = lastSavedLightTheme
+    darkModeThemeSelect.value = lastSavedDarkTheme
 
-    const imgPath = `assets/images/background/${selectedTheme}.jpg`
-    document.body.style.backgroundImage = `url('${imgPath}')`
+    if(isDarkMode !== lastSavedIsDarkMode) {
+        isDarkMode = lastSavedIsDarkMode
+        if(isDarkMode) {
+            setDarkMode()
+            darkModeSelect.classList.remove('fa-toggle-off')
+            darkModeSelect.classList.add('fa-toggle-on')
+        } else {
+            unsetDarkMode()
+            darkModeSelect.classList.add('fa-toggle-off')
+            darkModeSelect.classList.remove('fa-toggle-on')
+        }
+    }
+
+    const img = isDarkMode ? lastSavedDarkTheme : lastSavedLightTheme
+    document.body.style.backgroundImage = `url('assets/images/background/${img}.jpg')`
 
     curPomodoroTimer = lastSavedPomodoro;
     curShortBreakTimer = lastSavedShortBreak;
@@ -172,11 +193,13 @@ saveBtn.addEventListener('click', () => {
     curPomodoroTimer = parseInt(pomodoroInput.value)
     curShortBreakTimer = parseInt(shortBreakInput.value)
     curLongBreakTimer = parseInt(longBreakInput.value)
-    curTheme = themeSelect.value
+    curTheme = isDarkMode ? darkModeThemeSelect.value : lightModeThemeSelect.value
     lastSavedPomodoro = curPomodoroTimer
     lastSavedShortBreak = curShortBreakTimer
     lastSavedLongBreak = curLongBreakTimer
-    lastSavedTheme = themeSelect.value
+    lastSavedDarkTheme = darkModeThemeSelect.value
+    lastSavedLightTheme = lightModeThemeSelect.value
+    lastSavedIsDarkMode = isDarkMode
     recentlySaved = true
 
     if(timerInterval){
@@ -200,6 +223,9 @@ saveBtn.addEventListener('click', () => {
         timeDisplay.innerHTML = isNaN(value) ? '10:00': `${value}:00`
     }
 
+    const img = curTheme
+    document.body.style.backgroundImage = `url('assets/images/background/${img}.jpg')`
+
 })
 
 themeTab.addEventListener('click', () =>{
@@ -221,7 +247,16 @@ timerTab.addEventListener('click', () =>{
     timerSettings.classList.add('active')
 })
 
-themeSelect.addEventListener('change', (e) => {
+lightModeThemeSelect.addEventListener('change', (e) => {
+    if(isDarkMode) return
+    const selectedTheme = e.target.value
+    const imgPath = `assets/images/background/${selectedTheme}.jpg`
+
+    document.body.style.backgroundImage = `url('${imgPath}')`
+})
+
+darkModeThemeSelect.addEventListener('change', (e) => {
+    if(!isDarkMode) return
     const selectedTheme = e.target.value
     const imgPath = `assets/images/background/${selectedTheme}.jpg`
 
@@ -234,7 +269,7 @@ shortBreakLabel.addEventListener('click', () => {
 longBreakLabel.addEventListener('click', () => {
     switchMode('long-break', longBreakInput, 15)
 })
-pomodoroLabel.addEventListener('click', () => {why
+pomodoroLabel.addEventListener('click', () => {
     switchMode('pomodoro', pomodoroInput, 25)
 })
 
@@ -367,7 +402,7 @@ function resetSettings() {
 
     }
 
-    themeSelect.value = 'Ocean-Sunrise';
+    lightModeThemeSelect.value = 'Ocean-Sunrise';
     document.body.style.backgroundImage = `url('assets/images/background/Ocean-Sunrise.jpg')`
     
 }
@@ -519,6 +554,8 @@ function setDarkMode() {
     longBreakLabelEl.classList.add('dark-mode')
     timeDisplay.classList.add('dark-mode')
     settingsPanel.classList.add('dark-mode')
+    const img = darkModeThemeSelect.value
+    document.body.style.backgroundImage = `url('assets/images/background/${img}.jpg')` 
 }
 
 function unsetDarkMode() {
@@ -533,4 +570,6 @@ function unsetDarkMode() {
     longBreakLabelEl.classList.remove('dark-mode')
     timeDisplay.classList.remove('dark-mode')
     settingsPanel.classList.remove('dark-mode')
+    const img = lightModeThemeSelect.value
+    document.body.style.backgroundImage = `url('assets/images/background/${img}.jpg')`
 }
