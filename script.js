@@ -203,31 +203,22 @@ saveBtn.addEventListener('click', () => {
 })
 
 themeTab.addEventListener('click', () =>{
-    alertSettings.classList.add('hidden')
-    themeSettings.classList.remove('hidden')
-    timerSettings.classList.add('hidden')
-
+    document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'))
+    document.querySelectorAll('.settings-section').forEach(sec => sec.classList.remove('active'))
     themeTab.classList.add('active')
-    timerTab.classList.remove('active')
-    alertTab.classList.remove('active')
+    themeSettings.classList.add('active')
 })
 alertTab.addEventListener('click', () =>{
-    alertSettings.classList.remove('hidden')
-    themeSettings.classList.add('hidden')
-    timerSettings.classList.add('hidden')
-
-    themeTab.classList.remove('active')
-    timerTab.classList.remove('active')
+    document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'))
+    document.querySelectorAll('.settings-section').forEach(sec => sec.classList.remove('active'))
     alertTab.classList.add('active')
+    alertSettings.classList.add('active')
 })
 timerTab.addEventListener('click', () =>{
-    alertSettings.classList.add('hidden')
-    themeSettings.classList.add('hidden')
-    timerSettings.classList.remove('hidden')
-
-    themeTab.classList.remove('active')
+    document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'))
+    document.querySelectorAll('.settings-section').forEach(sec => sec.classList.remove('active'))
     timerTab.classList.add('active')
-    alertTab.classList.remove('active')
+    timerSettings.classList.add('active')
 })
 
 themeSelect.addEventListener('change', (e) => {
@@ -243,7 +234,7 @@ shortBreakLabel.addEventListener('click', () => {
 longBreakLabel.addEventListener('click', () => {
     switchMode('long-break', longBreakInput, 15)
 })
-pomodoroLabel.addEventListener('click', () => {
+pomodoroLabel.addEventListener('click', () => {why
     switchMode('pomodoro', pomodoroInput, 25)
 })
 
