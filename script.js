@@ -573,3 +573,27 @@ function unsetDarkMode() {
     const img = lightModeThemeSelect.value
     document.body.style.backgroundImage = `url('assets/images/background/${img}.jpg')`
 }
+
+const expandBtn = document.getElementById('expand');
+
+expandBtn.addEventListener('click', () => {
+    // Use the documentElement for full page, or a specific container if you want
+    const elem = document.documentElement;
+    if (!document.fullscreenElement) {
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) { // Safari
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { // IE11
+            elem.msRequestFullscreen();
+        }
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) { // Safari
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { // IE11
+            document.msExitFullscreen();
+        }
+    }
+});
